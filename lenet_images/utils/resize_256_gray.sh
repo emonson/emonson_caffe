@@ -1,22 +1,29 @@
 #!/bin/bash
 
 # databasepath should point to the base Sets directory
-databasepath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-
 # Within origdir should be one directory of images per category/set
+# The original image file extension has to match exactly, case-sensitive
+
+# databasepath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
+databasepath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+
 origdir="originals"
-# This extension has to match exactly, case-sensitive
 origext=".JPEG"
-origpath=${databasepath}/${origdir}
-filematch="*${origext}"
 
 newsize=256
-newdir="resized_gray_${newsize}"
 newext=".jpg"
-newpath=${databasepath}/${origdir}
+
+
+
+origpath=${databasepath}/${origdir}
+filematch="*${origext}"
+newdir="resized_gray_${newsize}"
+newpath=${databasepath}/${newdir}
 
 # Create output directory if it doesn't exist
-mkdir -p ${newdir}
+# (isn't strictly necessary as the first set mkdir call will create this root directory,
+# too, if it doesn't exist)
+mkdir -p ${newpath}
 
 # count the number of sets
 setcount=`find $origpath -maxdepth 1 -type d | wc -l`
@@ -33,6 +40,7 @@ for setpath in ${origpath}/*/; do
     fc=$((filecount + 0))
     ii=0
     
+    # create new set directory if it doesn't exist
     mkdir -p "${newpath}/${setname}"
     for filename in ${origpath}'/'${setname}'/'${filematch}; do
         ii=$((ii + 1))
