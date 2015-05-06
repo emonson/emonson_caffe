@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# --- USER-SET PARAMETERS ---
+
 # databasepath should point to the base Sets directory
 # Within origdir should be one directory of images per category/set
 # The original image file extension has to match exactly, case-sensitive
@@ -14,6 +16,7 @@ newsize=256
 newext=".jpg"
 
 
+# --- SCRIPT ---
 
 origpath=${databasepath}/${origdir}
 filematch="*${origext}"

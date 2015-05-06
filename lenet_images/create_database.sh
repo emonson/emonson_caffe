@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 # Create the imagenet lmdb inputs
 # N.B. set the path to the imagenet train + val data dirs
+# ** NOTE: LeNet needs grayscale images!
 
 ORIG_DATA_ROOT=/Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256/
 
