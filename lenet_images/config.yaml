@@ -1,0 +1,4 @@
+caffe_home: /Users/emonson/Programming/caffe/build/tools
+image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
+data_split_rand_state: 0
+test_fraction: 0.2

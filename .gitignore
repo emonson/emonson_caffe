@@ -1,0 +1,11 @@
+# LMDB databases (only by naming convention in the first case)
+*lmdb
+*.mdb
+
+# train/val splits
+train.txt
+val.txt
+categories.txt
+
+# python binaries
+*.pyc

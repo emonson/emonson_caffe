@@ -2,12 +2,12 @@
 
 # --- USER-SET PARAMETERS ---
 
-# databasepath should point to the base Sets directory
+# imagesetsrootpath should point to the base Sets directory
 # Within origdir should be one directory of images per category/set
 # The original image file extension has to match exactly, case-sensitive
 
-# databasepath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-databasepath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+imagesetsrootpath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
+# imagesetsrootpath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
 
 origdir="originals"
 origext=".JPEG"
@@ -18,10 +18,10 @@ newext=".jpg"
 
 # --- SCRIPT ---
 
-origpath=${databasepath}/${origdir}
+origpath=${imagesetsrootpath}/${origdir}
 filematch="*${origext}"
 newdir="resized_gray_${newsize}"
-newpath=${databasepath}/${newdir}
+newpath=${imagesetsrootpath}/${newdir}
 
 # Create output directory if it doesn't exist
 # (isn't strictly necessary as the first set mkdir call will create this root directory,
