@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env python
 
 import yaml
 from utils.shell import run_command
