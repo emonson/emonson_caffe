@@ -1,4 +1,4 @@
-## LeNet
+## Training LeNet with a collection of labeled images for classification
 
 This example is designed to train the LeNet example network on a set of images.
 They should be pre-processed to square (e.g. 256 x 256 pixels), JPEG encoded, and grayscale.
