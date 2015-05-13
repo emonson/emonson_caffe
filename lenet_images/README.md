@@ -17,7 +17,7 @@ and then crops down to 256 x 256 pixels from the center.)
 ./train_lenet.py
 ```
 
-*NOTE: *
+*NOTE:*
 
 If you run out of GPU memory, edit `model/lenet_train_test.prototxt` to reduce
 the TRAIN layer `batch_size` or make your images smaller.
