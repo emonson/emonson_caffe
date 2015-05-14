@@ -9,3 +9,6 @@ categories.txt
 
 # python binaries
 *.pyc
+
+# mac specific
+.DS_Store
