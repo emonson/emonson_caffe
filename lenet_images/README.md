@@ -12,7 +12,7 @@ and then crops down to 256 x 256 pixels from the center.)
 ```
 # edit config.yaml to set paths to caffe binaries and image sets
 ./create_train_val_split.py
-./create_database.py
+./make_train_val_database.py
 # edit last line of model/lenet_solver.prototxt to set GPU or CPU run
 ./train_lenet.py
 ```
@@ -22,7 +22,7 @@ and then crops down to 256 x 256 pixels from the center.)
 If you run out of GPU memory, edit `model/lenet_train_test.prototxt` to reduce
 the TRAIN layer `batch_size` or make your images smaller.
 
-If the loss value blows up (e.g. 85 or nan, rather than 0.5 or 2), edit
+If the loss value blows up (e.g. 87 or nan, rather than 0.5 or 2), edit
 `model/lenet_solver.prototxt` to reduce the learning rate, `base_lr`.
 
 
@@ -77,11 +77,8 @@ first to create the `train.txt` and `val.txt` text files in the `data/` director
 
 Images can be retrieved much faster if they're in an LMDB database than if they
 were in an HDF5 file or were just on disk as JPEGs. So, after the train/val split
-has been done, you need to run `create_database.py` to serialize all the images
+has been done, you need to run `make_train_val_database.py` to serialize all the images
 into two LMDB databases, which will be placed in directories in the `data\` directory.
-
-NOTE: If you need to recreate the databases, delete the old `lenet_train_lmdb`
-and `lenet_val_lmdb` directories and their contents first.
 
 
 ### Train the network
