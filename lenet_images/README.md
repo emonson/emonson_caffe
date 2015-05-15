@@ -59,9 +59,10 @@ any of the scripts.
 
 ```
 caffe_home: /Users/emonson/Programming/caffe/build/tools
-image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_gray_256
+train_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_gray_256
+test_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_gray_256_test
 data_split_rand_state: 0
-test_fraction: 0.2
+validation_fraction: 0.2
 ```
 
 ### Train / validation split

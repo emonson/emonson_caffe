@@ -6,6 +6,7 @@
 import yaml
 import os
 import sys
+import shutil
 from utils.shell import run_command
 
 # --- CONFIGURE ---
@@ -13,23 +14,30 @@ from utils.shell import run_command
 # Read in system-specific configuration values. Edit this config.yaml file before running
 config = yaml.load( open('config.yaml').read() )
 
-# convert_imageset will error out if databases already exist, so check and be more graceful
-if os.path.isdir('data/lenet_train_lmdb') or os.path.isdir('data/lenet_val_lmdb'):
+# convert_imageset will error out if databases already exist, so check and give the option to delete
+train_db_exists = os.path.isdir('data/lenet_train_lmdb')
+val_db_exists = os.path.isdir('data/lenet_val_lmdb')
+if train_db_exists or val_db_exists:
     print
-    print "Error: It looks like the database already exists!"
-    print "Delete both data/lenet_train_lmdb and data/lenet_val_lmdb directories and run this script again."
-    print
-    sys.exit(1)
+    print "WARNING: It looks like the databases already exist!"
+    del_db = raw_input('Do you want to delete the existing DBs and continue? [y/N]: ')
+    if (not del_db) or (del_db.lower() != 'y'):
+        sys.exit(1)
+    else:
+        if train_db_exists:
+            shutil.rmtree('data/lenet_train_lmdb')
+        if val_db_exists:
+            shutil.rmtree('data/lenet_val_lmdb')
 
 # Make sure original image data directory is really a directory
-if not os.path.isdir(config['image_data_root']):
+if not os.path.isdir(config['train_image_data_root']):
     print
-    print "Error: image_data_root is not a path to a directory:", image_data_root
-    print "Set the image_data_root variable in config.yaml to the path where the ImageNet training data is stored."
+    print "Error: train_image_data_root is not a path to a directory:", train_image_data_root
+    print "Set the train_image_data_root variable in config.yaml to the path where the ImageNet training data is stored."
     print
     sys.exit(1)
 
-# Make train and validation split text files exist,
+# Make sure train and validation split text files exist,
 # otherwise the databases will get created, just with zero images
 if not (os.path.isfile('data/train.txt') and os.path.isfile('data/val.txt')):
     print
@@ -54,11 +62,11 @@ GLOG_logtostderr=1 %s/convert_imageset \
 # --- RUN ---
 
 print "Creating train lmdb..."
-command = command_template % (config['caffe_home'], config['image_data_root'], 'train.txt', 'train')
+command = command_template % (config['caffe_home'], config['train_image_data_root'], 'train.txt', 'train')
 run_command(command)
     
 print "Creating val lmdb..."
-command = command_template % (config['caffe_home'], config['image_data_root'], 'val.txt', 'val')
+command = command_template % (config['caffe_home'], config['train_image_data_root'], 'val.txt', 'val')
 run_command(command)
 
 print "Done."

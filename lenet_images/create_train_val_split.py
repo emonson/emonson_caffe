@@ -16,19 +16,19 @@ from sklearn.cross_validation import train_test_split
 config = yaml.load( open('config.yaml').read() )
 
 # Make sure original image data directory is really a directory
-if not os.path.isdir(config['image_data_root']):
+if not os.path.isdir(config['train_image_data_root']):
     print
-    print "Error: image_data_root is not a path to a directory:", image_data_root
-    print "Set the image_data_root variable in config.yaml to the path where the ImageNet training data is stored."
+    print "Error: train_image_data_root is not a path to a directory:", train_image_data_root
+    print "Set the train_image_data_root variable in config.yaml to the path where the ImageNet training data is stored."
     sys.exit(1)
 
 if 'data_split_rand_state' not in config:
     print "Warning: 'data_split_rand_state' not in config.yaml, so being set to default value of 0"
     config['data_split_rand_state'] = 0
 
-if 'test_fraction' not in config:
-    print "Warning: 'test_fraction' not in config.yaml, so being set to default value of 0.2"
-    config['test_fraction'] = 0.2
+if 'validation_fraction' not in config:
+    print "Warning: 'validation_fraction' not in config.yaml, so being set to default value of 0.2"
+    config['validation_fraction'] = 0.2
 
 
 # --- RUN ---
@@ -36,7 +36,7 @@ if 'test_fraction' not in config:
 print 'Reading image names and categories...'
 # os.walk gives back a generator of tuples for each directory it walks
 # ('current_dir', [directories], [files]), (...)
-walk = os.walk(config['image_data_root'])
+walk = os.walk(config['train_image_data_root'])
 categories = walk.next()[1]
 
 paths = []
@@ -52,7 +52,7 @@ for ii, category in enumerate(categories):
 # Run actual train/test split
 file_list_train, file_list_val, cat_idx_train, cat_idx_val = \
         train_test_split( paths, cat_idxs, \
-                            test_size = config['test_fraction'], \
+                            test_size = config['validation_fraction'], \
                             random_state = config['data_split_rand_state'] )
 
 # Write out text files of file and label integer for both train and validation sets

@@ -1,4 +1,12 @@
 caffe_home: /Users/emonson/Programming/caffe/build/tools
-image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
+# train_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
+# test_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
+train_image_data_root: /Users/emonson/Data/JanBrueghel/ImageNet/Sets/resized_gray_256
+test_image_data_root: /Users/emonson/Data/JanBrueghel/ImageNet/Sets/resized_gray_256
+
+# caffe_home: /usr/local/caffe/build/tools
+# train_image_data_root: /Users/mauro/OwnCloud/Publications/GMRA_metric/Code/Images_train
+# test_image_data_root: /Users/mauro/OwnCloud/Publications/GMRA_metric/Code/Images_test
+
 data_split_rand_state: 0
-test_fraction: 0.2
+validation_fraction: 0.2

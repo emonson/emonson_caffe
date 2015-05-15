@@ -6,6 +6,9 @@
 train.txt
 val.txt
 categories.txt
+test.txt
+test_categories.txt
+test_answers.txt
 
 # python binaries
 *.pyc
