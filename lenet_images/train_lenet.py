@@ -11,6 +11,6 @@ config = yaml.load( open('config.yaml').read() )
 
 # --- RUN ---
 
-command = "%s/caffe train --solver=model/lenet_solver.prototxt" % (config['caffe_home'],)
+command = "%s/caffe.bin train --solver=model/lenet_solver.prototxt" % (config['caffe_home'],)
 run_command(command)
 

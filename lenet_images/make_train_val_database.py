@@ -49,7 +49,7 @@ if not (os.path.isfile('data/train.txt') and os.path.isfile('data/val.txt')):
 # Create a template string for the shell command to feed values into
 # Note: Data directory path string needs a slash after it, so we're adding it here explicitly
 command_template = """
-GLOG_logtostderr=1 %s/convert_imageset \
+GLOG_logtostderr=1 %s/convert_imageset.bin \
     --resize_height=0 \
     --resize_width=0 \
     --shuffle \
