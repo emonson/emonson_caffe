@@ -18,3 +18,18 @@ creating the new one, so it's easy to add sets, and earlier-processed images wil
 get overwritten, but it won't remove old sets automatically if that's what you're trying
 to do. For the latter, just delete the old processed directory manually before you start
 and regenerate the whole thing.
+
+### Naming conventions
+
+Scripts follow this naming pattern:
+
+```
+set_edge_size_pad_gray.sh
+```
+
+We currently process two types of image sets, those from ImageNet, and those from 
+Jan Brueghel drawings or paintings, so sets so far are only "in" and "jb". When images are
+processed to show edges, "edge" is specified. Size is resizing
+to that number of pixels, default short side to that size. If it's long side, which needs 
+padding, "long" is specified with the padding routine. Color is default, so "gray" is specified
+for grayscale conversion.
