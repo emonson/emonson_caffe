@@ -2,12 +2,17 @@
 
 # --- USER-SET PARAMETERS ---
 
-# imagesetsrootpath should point to the base Sets directory
-# Within origdir should be one directory of images per category/set
-# The original image file extension has to match exactly, case-sensitive
+# Loading base directory for image sets from server.conf file
 
-imagesetsrootpath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-# imagesetsrootpath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+CONFIG_FILE=server.conf
+
+if [[ -f $CONFIG_FILE ]]; then
+    . $CONFIG_FILE
+else
+    echo "Error: config file can't be found."
+    echo $CONFIG_FILE
+    exit 1
+fi
 
 origdir="originals"
 origext=".JPEG"
@@ -49,7 +54,7 @@ for setpath in ${origpath}/*/; do
         ii=$((ii + 1))
         bn=`basename ${filename} ${origext}`
         outname="${newpath}/${setname}/${bn}${newext}"
-        convert ${filename} -colorspace Gray \
+        convert ${filename} \
                              -resize ${newsize}x${newsize}^ \
                              -gravity center -extent ${newsize}x${newsize} \
                 ${outname}

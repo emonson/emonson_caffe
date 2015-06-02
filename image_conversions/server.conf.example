@@ -1,0 +1,3 @@
+# Root directory where original and resized/cropped image sets (directories) will go on this system
+
+IMAGESETSROOTPATH="/Volumes/Data/Not_backed_up/ImageNet/Sets"

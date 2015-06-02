@@ -2,27 +2,31 @@
 
 # --- USER-SET PARAMETERS ---
 
-# imagesetsrootpath should point to the base Sets directory
-# Within origdir should be one directory of images per category/set
-# The original image file extension has to match exactly, case-sensitive
+# Loading base directory for image sets from server.conf file
 
-# imagesetsrootpath="/usr/local/caffe/data/CowsSailboatsWindmills"
-imagesetsrootpath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-# imagesetsrootpath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+CONFIG_FILE=server.conf
+
+if [[ -f $CONFIG_FILE ]]; then
+    . $CONFIG_FILE
+else
+    echo "Error: config file can't be found."
+    echo $CONFIG_FILE
+    exit 1
+fi
 
 origdir="drawings_original"
 origext=".png"
 
 newsize=256
 newext=".jpg"
-newdir="drawings_resizedLongDither_${newsize}"
+newdir="drawings_resizedLongRandom_${newsize}"
 
 
 # --- SCRIPT ---
 
-origpath=${imagesetsrootpath}/${origdir}
+origpath=${IMAGESETSROOTPATH}/${origdir}
 filematch="*${origext}"
-newpath=${imagesetsrootpath}/${newdir}
+newpath=${IMAGESETSROOTPATH}/${newdir}
 
 # Create output directory if it doesn't exist
 # (isn't strictly necessary as the first set mkdir call will create this root directory,
@@ -58,7 +62,7 @@ for setpath in ${origpath}/*/; do
         convert ${filename} -colorspace Gray \
             -resize ${newsize}x${newsize} \
             -set option:distort:viewport "$viewport" \
-            -virtual-pixel Dither -filter point -distort SRT 0 \
+            -virtual-pixel Random -filter point -distort SRT 0 \
             -normalize \
             ${outname}
         echo "${setname}  ${ss}/${sc}  ${ii}/${fc}  ${outname}"

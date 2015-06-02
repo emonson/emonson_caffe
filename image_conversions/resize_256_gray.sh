@@ -2,12 +2,17 @@
 
 # --- USER-SET PARAMETERS ---
 
-# imagesetsrootpath should point to the base Sets directory
-# Within origdir should be one directory of images per category/set
-# The original image file extension has to match exactly, case-sensitive
+# Loading base directory for image sets from server.conf file
 
-# imagesetsrootpath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-imagesetsrootpath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+CONFIG_FILE=server.conf
+
+if [[ -f $CONFIG_FILE ]]; then
+    . $CONFIG_FILE
+else
+    echo "Error: config file can't be found."
+    echo $CONFIG_FILE
+    exit 1
+fi
 
 origdir="originals"
 origext=".JPEG"
@@ -18,10 +23,10 @@ newext=".jpg"
 
 # --- SCRIPT ---
 
-origpath=${imagesetsrootpath}/${origdir}
+origpath=${IMAGESETSROOTPATH}/${origdir}
 filematch="*${origext}"
 newdir="resized_gray_${newsize}"
-newpath=${imagesetsrootpath}/${newdir}
+newpath=${IMAGESETSROOTPATH}/${newdir}
 
 # Create output directory if it doesn't exist
 # (isn't strictly necessary as the first set mkdir call will create this root directory,
@@ -50,13 +55,8 @@ for setpath in ${origpath}/*/; do
         bn=`basename ${filename} ${origext}`
         outname="${newpath}/${setname}/${bn}${newext}"
         convert ${filename} -colorspace Gray \
-                             -resize ${outsize}x${outsize}^ \
-                             -gravity center -extent ${outsize}x${outsize} \
-                             -blur 2 \
-                \( +clone -negate -blur 2 \) -compose color-dodge -composite \
-                \( +clone \) -compose multiply -composite \
-                \( +clone \) -compose multiply -composite \
-                \( +clone \) -compose multiply -composite \
+                             -resize ${newsize}x${newsize}^ \
+                             -gravity center -extent ${newsize}x${newsize} \
                 ${outname}
         echo "${setname}  ${ss}/${sc}  ${ii}/${fc}  ${outname}"
     done

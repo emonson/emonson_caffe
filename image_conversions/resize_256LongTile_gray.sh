@@ -2,31 +2,41 @@
 
 # --- USER-SET PARAMETERS ---
 
-# imagesetsrootpath should point to the base Sets directory
-# Within origdir should be one directory of images per category/set
-# The original image file extension has to match exactly, case-sensitive
+# Loading base directory for image sets from server.conf file
 
-# imagesetsrootpath="/Volumes/Data/Not_backed_up/ImageNet/Sets"
-imagesetsrootpath="/Users/emonson/Data/JanBrueghel/ImageNet/Sets"
+CONFIG_FILE=server.conf
 
-origdir="originals"
-origext=".JPEG"
+if [[ -f $CONFIG_FILE ]]; then
+    . $CONFIG_FILE
+else
+    echo "Error: config file can't be found."
+    echo $CONFIG_FILE
+    exit 1
+fi
+
+origdir="drawings_original"
+origext=".png"
 
 newsize=256
 newext=".jpg"
+newdir="drawings_resizedLongTile_${newsize}"
 
 
 # --- SCRIPT ---
 
-origpath=${imagesetsrootpath}/${origdir}
+origpath=${IMAGESETSROOTPATH}/${origdir}
 filematch="*${origext}"
-newdir="resized_gray_${newsize}"
-newpath=${imagesetsrootpath}/${newdir}
+newpath=${IMAGESETSROOTPATH}/${newdir}
 
 # Create output directory if it doesn't exist
 # (isn't strictly necessary as the first set mkdir call will create this root directory,
 # too, if it doesn't exist)
 mkdir -p ${newpath}
+
+# Composing some expressions to use in convert viewport command
+offset_x="%[fx: h>w ? (w*(h/${newsize})-${newsize})/2 : 0 ]"
+offset_y="%[fx: h>w ? 0 : (h*(w/${newsize})-${newsize})/2 ]"
+viewport="${newsize}x${newsize}+${offset_x}+${offset_y}"
 
 # count the number of sets
 setcount=`find $origpath -maxdepth 1 -type d | wc -l`
@@ -49,10 +59,12 @@ for setpath in ${origpath}/*/; do
         ii=$((ii + 1))
         bn=`basename ${filename} ${origext}`
         outname="${newpath}/${setname}/${bn}${newext}"
-        convert ${filename} \
-                             -resize ${newsize}x${newsize}^ \
-                             -gravity center -extent ${newsize}x${newsize} \
-                ${outname}
+        convert ${filename} -colorspace Gray \
+            -resize ${newsize}x${newsize} \
+            -set option:distort:viewport "$viewport" \
+            -virtual-pixel Tile -filter point -distort SRT 0 \
+            -normalize \
+            ${outname}
         echo "${setname}  ${ss}/${sc}  ${ii}/${fc}  ${outname}"
     done
 done
