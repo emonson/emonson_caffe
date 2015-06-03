@@ -19,7 +19,7 @@ origext=".png"
 
 newsize=256
 newext=".jpg"
-newdir="drawings_resizedLongMirror${newsize}"
+newdir="jb_${newsize}_longMirror_gray"
 
 
 # --- SCRIPT ---
