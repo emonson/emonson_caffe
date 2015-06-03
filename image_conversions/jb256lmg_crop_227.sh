@@ -14,12 +14,12 @@ else
     exit 1
 fi
 
-origdir="originals"
-origext=".JPEG"
+origdir="jb_256_longMirror_gray"
+origext=".jpg"
 
-newsize=256
+newsize=227
 newext=".jpg"
-newdir="in_${newsize}_gray"
+newdir="jb256lmg_cropped_${newsize}"
 
 
 # --- SCRIPT ---
@@ -54,8 +54,7 @@ for setpath in ${origpath}/*/; do
         ii=$((ii + 1))
         bn=`basename ${filename} ${origext}`
         outname="${newpath}/${setname}/${bn}${newext}"
-        convert ${filename} -colorspace Gray \
-                             -resize ${newsize}x${newsize}^ \
+        convert ${filename} \
                              -gravity center -extent ${newsize}x${newsize} \
                 ${outname}
         echo "${setname}  ${ss}/${sc}  ${ii}/${fc}  ${outname}"

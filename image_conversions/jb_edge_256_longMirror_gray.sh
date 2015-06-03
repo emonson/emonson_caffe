@@ -19,7 +19,7 @@ origext=".png"
 
 newsize=256
 newext=".jpg"
-newdir="edgedDrawings_resizedLongMirror_${newsize}"
+newdir="jb_edged_${newsize}_longMirror_gray"
 
 
 # --- SCRIPT ---

@@ -19,7 +19,7 @@ origext=".png"
 
 newsize=256
 newext=".jpg"
-newdir="drawings_resizedLongRandom_${newsize}"
+newdir="jb_${newsize}_longRandom_gray"
 
 
 # --- SCRIPT ---

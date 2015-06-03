@@ -19,13 +19,13 @@ origext=".JPEG"
 
 newsize=256
 newext=".jpg"
+newdir="in_${newsize}"
 
 
 # --- SCRIPT ---
 
 origpath=${imagesetsrootpath}/${origdir}
 filematch="*${origext}"
-newdir="resized_gray_${newsize}"
 newpath=${imagesetsrootpath}/${newdir}
 
 # Create output directory if it doesn't exist

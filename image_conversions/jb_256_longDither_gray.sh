@@ -19,7 +19,7 @@ origext=".png"
 
 newsize=256
 newext=".jpg"
-newdir="drawings_resizedLongDither_${newsize}"
+newdir="jb_${newsize}_longDither_gray"
 
 
 # --- SCRIPT ---
