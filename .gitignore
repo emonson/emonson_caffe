@@ -18,3 +18,4 @@ test_answers.txt
 
 # machine-specific configuration file
 server.conf
+config.yaml
