@@ -55,13 +55,14 @@ for setpath in ${origpath}/*/; do
         bn=`basename ${filename} ${origext}`
         outname="${newpath}/${setname}/${bn}${newext}"
         convert ${filename} -colorspace Gray \
-                             -resize ${outsize}x${outsize}^ \
-                             -gravity center -extent ${outsize}x${outsize} \
+                             -resize ${newsize}x${newsize}^ \
+                             -gravity center -extent ${newsize}x${newsize} \
                              -blur 2 \
                 \( +clone -negate -blur 2 \) -compose color-dodge -composite \
                 \( +clone \) -compose multiply -composite \
                 \( +clone \) -compose multiply -composite \
                 \( +clone \) -compose multiply -composite \
+                -normalize \
                 ${outname}
         echo "${setname}  ${ss}/${sc}  ${ii}/${fc}  ${outname}"
     done
