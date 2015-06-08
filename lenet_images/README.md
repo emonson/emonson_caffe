@@ -59,8 +59,10 @@ any of the scripts.
 
 ```
 caffe_home: /Users/emonson/Programming/caffe/build/tools
+
 train_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_gray_256
 test_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_gray_256_test
+
 data_split_rand_state: 0
 validation_fraction: 0.2
 ```
@@ -85,3 +87,21 @@ into two LMDB databases, which will be placed in directories in the `data\` dire
 
 Run `train_lenet.py`. See notes in the first section for guidance regarding
 memory problems and loss explosion.
+
+I've had some trouble in the past trying to direct the output of `train_lenet.py` to 
+a log file, seemingly because of the way I've used subprocess.call() to call the shell
+commands. I don't totally understand why this particular variant works and others don't,
+but it works well to use the stderr and stdout combiner `2>&1` along with piping to `tee`
+to get the output to go to file:
+
+```
+./train_lenet.py 2>&1 | tee file.log &
+```
+
+which will also send output to the screen. (The ampersand at the end will make the
+process run in the background so you can log out and still leave it running.)
+If you just want output to go to the file and not the screen at all, use
+
+```
+./train_lenet.py > file.log 2>&1 &
+```
