@@ -5,6 +5,7 @@ and write out train.txt and val.txt that create_database.sh needs
 """
 
 import os
+import sys
 import yaml
 import numpy as np
 import pandas as pd
