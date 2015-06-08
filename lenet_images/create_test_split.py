@@ -18,7 +18,7 @@ config = yaml.load( open('config.yaml').read() )
 # Make sure original image data directory is really a directory
 if not os.path.isdir(config['test_image_data_root']):
     print
-    print "Error: test_image_data_root is not a path to a directory:", test_image_data_root
+    print "Error: test_image_data_root is not a path to a directory:", config['test_image_data_root']
     print "Set the test_image_data_root variable in config.yaml to the path where the ImageNet training data is stored."
     sys.exit(1)
 

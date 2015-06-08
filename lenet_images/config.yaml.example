@@ -1,6 +1,4 @@
 caffe_home: /Users/emonson/Programming/caffe/build/tools
-# train_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
-# test_image_data_root: /Volumes/Data/Not_backed_up/ImageNet/Sets/edges_256
 train_image_data_root: /Users/emonson/Data/JanBrueghel/ImageNet/Sets/resized_gray_256
 test_image_data_root: /Users/emonson/Data/JanBrueghel/ImageNet/Sets/resized_gray_256
 
@@ -10,3 +8,12 @@ test_image_data_root: /Users/emonson/Data/JanBrueghel/ImageNet/Sets/resized_gray
 
 data_split_rand_state: 0
 validation_fraction: 0.2
+
+# Test batch_size set at 100 by default. 
+# test_iterations * batch_size should be about equal to the number of test images
+#   if you want to run through all of them. Otherwise, if there aren't enough test
+#   images they'll cycle through in some unknown way...
+test_iterations: 100
+test_model_weights: model_iter_10000.caffemodel
+# test mode = GPU or CPU
+test_mode: GPU
