@@ -10,6 +10,10 @@ test.txt
 test_categories.txt
 test_answers.txt
 
+# model output
+*.caffemodel
+*.solverstate
+
 # python binaries
 *.pyc
 
