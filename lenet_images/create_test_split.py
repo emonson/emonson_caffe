@@ -43,14 +43,9 @@ for ii, category in enumerate(categories):
     cat_idxs.extend([ii]*n_files)
 
 
-# Write out text files of file and label integer for both train and validation sets
-print 'Writing\n  data/test.txt'
-df = pd.DataFrame({'path':paths, 'label':[0]*len(cat_idxs)})
-df[['path','label']].sort(['label','path']).to_csv('data/test.txt', sep=' ', header=None, index=None)
-
-print '  data/test_answers.txt'
+print '  data/test.txt'
 df = pd.DataFrame({'path':paths, 'label':cat_idxs})
-df[['path','label']].sort(['label','path']).to_csv('data/test_answers.txt', sep=' ', header=None, index=None)
+df[['path','label']].sort(['label','path']).to_csv('data/test.txt', sep=' ', header=None, index=None)
 
 print '  data/test_categories.txt'
 # Write out category names with their integer indices
