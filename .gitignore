@@ -23,3 +23,8 @@ test_answers.txt
 # machine-specific configuration file
 server.conf
 config.yaml
+lenet_config.m
+
+# matlab temp files
+*.m~
+
