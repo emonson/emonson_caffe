@@ -10,7 +10,7 @@ config = lenet_config();
 if ~isdir(config.train_image_data_root)
     fprintf(['Error: train_image_data_root is not a path to a directory: ', config.test_image_data_root', ' \n']);
     fprintf('Set the train_image_data_root variable in config.yaml to the path where the ImageNet training data is stored.\n');
-    exit();
+    return;
 end
 
 %% --- RUN ---
