@@ -11,7 +11,7 @@ train_db_exists = isdir('data/lenet_train_lmdb');
 val_db_exists = isdir('data/lenet_val_lmdb');
 if (train_db_exists || val_db_exists),
     fprintf('WARNING: It looks like the databases already exist!\n');
-    del_db = input('Do you want to delete the existing DBs and continue? [y/N]: ');
+    del_db = input('Do you want to delete the existing DBs and continue? [y/N]: ', 's');
     if isempty(del_db) || ~strcmpi(del_db, 'y'),
         return;
     else
